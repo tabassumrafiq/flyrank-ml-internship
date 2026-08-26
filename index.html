@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Content Decline Prioritization | Research Paper</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- HERO -->
+    <header class="hero">
+        <div class="container">
+
+            <div class="eyebrow">
+                FLYRANK ML INTERNSHIP · CAPSTONE RESEARCH
+            </div>
+
+            <h1>
+                Prioritizing Content for Human Review
+                Using Observed Search and Engagement Signals
+            </h1>
+
+            <p class="subtitle">
+                A decision-support approach for ranking content items
+                that may deserve review when observed performance
+                indicates decline.
+            </p>
+
+            <div class="meta">
+                <span>Machine Learning</span>
+                <span>Content Prioritization</span>
+                <span>Decision Support</span>
+                <span>2026</span>
+            </div>
+
+        </div>
+    </header>
+
+
+    <main class="container">
+
+        <!-- ABSTRACT -->
+        <section class="paper-section abstract">
+            <div class="section-label">ABSTRACT</div>
+
+            <p>
+                This study asks whether observed content and search-performance
+                signals can be used to prioritize content items for human review
+                when the observed trend indicates decline.
+            </p>
+
+            <p>
+                The analysis uses an anonymized FlyRank ML Internship dataset
+                containing 30,000 content-item rows and 44 columns, with a binary
+                label derived from observed trend direction.
+            </p>
+
+            <p>
+                A Random Forest model using five observed features was evaluated
+                alongside a simple baseline, with client-grouped validation used
+                to provide a more conservative estimate of generalization.
+            </p>
+
+            <p>
+                The client-grouped evaluation measured an F1 score of 0.6730,
+                with 0.5283 precision and 0.9270 recall, while training and test
+                clients had zero overlap.
+            </p>
+
+            <p>
+                These results support using the model as a directional
+                decision-support ranking signal for human review, rather than as
+                proof of future decline or proof that a particular content
+                intervention will improve performance.
+            </p>
+        </section>
+
+
+        <!-- INTRODUCTION -->
+        <section class="paper-section">
+            <div class="section-label">01 · INTRODUCTION</div>
+
+            <h2>Problem Statement</h2>
+
+            <p>
+                Content teams may have more pages to review than they can
+                inspect manually. A useful prioritization system can help
+                reviewers decide which content items deserve attention first.
+            </p>
+
+            <p>
+                The research question is:
+            </p>
+
+            <div class="question-box">
+                Can observed content and search-performance signals prioritize
+                content items for human review when the observed trend indicates
+                decline?
+            </div>
+
+            <p>
+                The intended decision is therefore a review-prioritization
+                decision. The model does not make the final editorial decision.
+            </p>
+        </section>
+
+
+        <!-- DATA -->
+        <section class="paper-section">
+            <div class="section-label">02 · DATA</div>
+
+            <h2>Dataset</h2>
+
+            <div class="stats-grid">
+
+                <div class="stat-card">
+                    <strong>30,000</strong>
+                    <span>content-item rows</span>
+                </div>
+
+                <div class="stat-card">
+                    <strong>44</strong>
+                    <span>available columns</span>
+                </div>
+
+                <div class="stat-card">
+                    <strong>5</strong>
+                    <span>model features</span>
+                </div>
+
+                <div class="stat-card">
+                    <strong>0</strong>
+                    <span>client overlap in grouped validation</span>
+                </div>
+
+            </div>
+
+            <p>
+                The analysis uses the anonymized starter dataset
+                <code>data/raw/content_refresh_anonymized.csv</code>.
+                The modeling unit is one pseudonymized content item.
+            </p>
+
+            <p>
+                The target is derived from the observed trend direction:
+                <code>trend_direction == "down"</code> is mapped to the
+                declining class.
+            </p>
+
+            <h3>Excluded information</h3>
+
+            <p>
+                Trend, future-outcome, label, and refresh-decision fields were
+                excluded from the predictive feature set to reduce leakage risk.
+                Client identifiers were used for grouped validation only and
+                were not used as predictive features.
+            </p>
+        </section>
+
+
+        <!-- METHODOLOGY -->
+        <section class="paper-section">
+            <div class="section-label">03 · METHODOLOGY</div>
+
+            <h2>Modeling approach</h2>
+
+            <p>
+                The modeling lane uses five observed features:
+            </p>
+
+            <div class="feature-list">
+                <span>avg_position</span>
+                <span>ctr</span>
+                <span>engagement_rate</span>
+                <span>scroll_rate</span>
+                <span>word_count</span>
+            </div>
+
+            <h3>Label definition</h3>
+
+            <p>
+                The binary target is one when the observed trend direction is
+                <code>down</code>. This represents an observed trend label and
+                does not establish a guaranteed future outcome.
+            </p>
+
+            <h3>Model</h3>
+
+            <p>
+                A Random Forest classifier with median imputation was used.
+                The predicted probability of the declining class serves as the
+                ranking score.
+            </p>
+
+            <h3>Baseline</h3>
+
+            <p>
+                The baseline prioritizes content using observed search
+                visibility and average search position. It provides a simple
+                comparison point before relying on the learned model.
+            </p>
+
+            <h3>Validation design</h3>
+
+            <p>
+                Client-grouped validation was used so that clients in the test
+                set were not present in the training set. This grouped result
+                is treated as the more conservative estimate of generalization
+                to unseen clients.
+            </p>
+
+            <h3>Leakage checks</h3>
+
+            <p>
+                Outcome-related and future-oriented fields were excluded from
+                the predictive features. Client identifiers were used for
+                grouping only.
+            </p>
+        </section>
+
+
+        <!-- RESULTS -->
+        <section class="paper-section">
+            <div class="section-label">04 · RESULTS</div>
+
+            <h2>Model performance</h2>
+
+            <p>
+                The following measured results come from the validation work.
+                The grouped split is emphasized because it removes client
+                overlap between training and test data.
+            </p>
+
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Metric</th>
+                            <th>Random Split</th>
+                            <th>Client-Grouped Split</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr>
+                            <td>Accuracy</td>
+                            <td>0.6352</td>
+                            <td>0.5398</td>
+                        </tr>
+
+                        <tr>
+                            <td>Precision</td>
+                            <td>0.6121</td>
+                            <td>0.5283</td>
+                        </tr>
+
+                        <tr>
+                            <td>Recall</td>
+                            <td>0.8924</td>
+                            <td>0.9270</td>
+                        </tr>
+
+                        <tr class="highlight-row">
+                            <td>F1</td>
+                            <td>0.7261</td>
+                            <td><strong>0.6730</strong></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="result-note">
+                <strong>Validation note:</strong>
+                Client overlap between training and test sets was 0 in the
+                grouped validation design.
+            </div>
+
+            <h3>Interpretation</h3>
+
+            <p>
+                The grouped result is lower than the random-split result,
+                indicating that generalization is more difficult when client
+                overlap is removed. The model therefore provides a useful
+                measured signal for prioritization, but the result should not
+                be interpreted as production-grade certainty.
+            </p>
+        </section>
+
+
+        <!-- FIGURE -->
+        <section class="paper-section">
+            <div class="section-label">05 · MODEL SIGNAL</div>
+
+            <h2>Decline score distribution</h2>
+
+            <p>
+                The model probability is used as a ranking signal for the
+                action queue. Higher scores move items toward earlier human
+                review.
+            </p>
+
+            <div class="figure-card">
+
+                <img
+                    src="work/figures/decline_score_distribution.png"
+                    alt="Distribution of model decline scores"
+                >
+
+                <p class="caption">
+                    Figure 1. Distribution of model decline scores generated
+                    from the capstone modeling workflow.
+                </p>
+
+            </div>
+        </section>
+
+
+        <!-- LIMITATIONS -->
+        <section class="paper-section">
+            <div class="section-label">06 · LIMITATIONS</div>
+
+            <h2>Honest framing</h2>
+
+            <ul class="limits-list">
+                <li>
+                    The target represents observed trend direction and does
+                    not prove future decline.
+                </li>
+
+                <li>
+                    A high model score does not prove that an item needs a
+                    content refresh.
+                </li>
+
+                <li>
+                    The model does not establish that refreshing content will
+                    improve future performance.
+                </li>
+
+                <li>
+                    Grouped validation performance is lower than random-split
+                    performance.
+                </li>
+
+                <li>
+                    The feature set does not capture every contextual factor
+                    that may influence content performance.
+                </li>
+
+                <li>
+                    Recommendation quality may change as the underlying data
+                    population changes.
+                </li>
+            </ul>
+        </section>
+
+
+        <!-- RECOMMENDATIONS -->
+        <section class="paper-section recommendations">
+            <div class="section-label">07 · RANKED RECOMMENDATIONS</div>
+
+            <h2>Content action playbook</h2>
+
+            <div class="recommendation">
+
+                <div class="rank">01</div>
+
+                <div>
+                    <h3>Prioritize for human review</h3>
+
+                    <p>
+                        Items with a high decline score should receive earlier
+                        human review.
+                    </p>
+
+                    <div class="tags">
+                        <span>HIGH_DECLINE_SCORE</span>
+                        <span>POSITION_RISK</span>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <div class="recommendation">
+
+                <div class="rank">02</div>
+
+                <div>
+                    <h3>Review if resources allow</h3>
+
+                    <p>
+                        Moderate-score items can be reviewed when capacity is
+                        available.
+                    </p>
+
+                    <div class="tags">
+                        <span>LOW_CTR_SIGNAL</span>
+                        <span>LOW_ENGAGEMENT_SIGNAL</span>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <div class="recommendation">
+
+                <div class="rank">03</div>
+
+                <div>
+                    <h3>Monitor</h3>
+
+                    <p>
+                        Lower-score items can remain in the monitoring queue
+                        rather than receiving immediate intervention.
+                    </p>
+
+                    <div class="tags">
+                        <span>LOWER_PRIORITY</span>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <h3>Human review is required</h3>
+
+            <p>
+                Reviewers should consider content relevance, quality, strategic
+                importance, recent changes, and whether an intervention is
+                appropriate before acting.
+            </p>
+
+            <div class="no-go">
+                <strong>Should not be automated:</strong>
+
+                <ul>
+                    <li>Automatic content rewriting</li>
+                    <li>Automatic content deletion</li>
+                    <li>Automatic publishing</li>
+                    <li>Automatic refresh decisions</li>
+                    <li>Treating model scores as guaranteed outcomes</li>
+                </ul>
+            </div>
+        </section>
+
+
+        <!-- REPRODUCIBILITY -->
+        <section class="paper-section">
+            <div class="section-label">08 · REPRODUCIBILITY</div>
+
+            <h2>Research artifacts</h2>
+
+            <p>
+                The analysis is organized as a reproducible research workflow.
+                The notebooks contain the modeling, validation, and action
+                playbook steps used to produce the paper's results.
+            </p>
+
+            <div class="artifact-grid">
+
+                <div class="artifact">
+                    <strong>Capstone</strong>
+                    <span>ML-11 research paper workflow</span>
+                    <code>work/notebooks/capstone.ipynb</code>
+                </div>
+
+                <div class="artifact">
+                    <strong>Validation</strong>
+                    <span>Model and claim audit</span>
+                    <code>work/notebooks/w06_validation_audit.ipynb</code>
+                </div>
+
+                <div class="artifact">
+                    <strong>Action Playbook</strong>
+                    <span>Ranked recommendations</span>
+                    <code>work/notebooks/w07_action_playbook.ipynb</code>
+                </div>
+
+            </div>
+        </section>
+
+
+        <!-- ACKNOWLEDGMENTS -->
+        <section class="paper-section acknowledgment">
+            <div class="section-label">ACKNOWLEDGMENTS & DATA CREDIT</div>
+
+            <h2>Data source</h2>
+
+            <p>
+                Built on the FlyRank ML Internship dataset.
+            </p>
+
+            <p>
+                Data source:
+                <a
+                    href="https://flyrank.ai"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    FlyRank
+                </a>
+            </p>
+
+            <p class="small-note">
+                This research artifact is intended for educational and
+                decision-support purposes. Results and recommendations should
+                be interpreted within the limitations described above.
+            </p>
+        </section>
+
+    </main>
+
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="container">
+
+            <p>
+                FlyRank ML Internship · Machine Learning Capstone · 2026
+            </p>
+
+            <p>
+                Research artifact for transparent, human-reviewed
+                content prioritization.
+            </p>
+
+        </div>
+    </footer>
+
+</body>
+</html>
