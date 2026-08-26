@@ -1,0 +1,453 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: Georgia, "Times New Roman", serif;
+    background: #f5f6f8;
+    color: #20242a;
+    line-height: 1.75;
+}
+
+/* =========================
+   GLOBAL
+========================= */
+
+.container {
+    width: min(1100px, 92%);
+    margin: 0 auto;
+}
+
+.paper-section {
+    background: #ffffff;
+    margin: 28px 0;
+    padding: 48px 55px;
+    border: 1px solid #e2e5e9;
+    border-radius: 12px;
+}
+
+.paper-section p {
+    margin: 0 0 18px;
+}
+
+h2 {
+    font-size: 2rem;
+    margin: 8px 0 22px;
+    color: #15191e;
+}
+
+h3 {
+    font-size: 1.2rem;
+    margin: 28px 0 12px;
+    color: #20242a;
+}
+
+code {
+    background: #f0f2f5;
+    padding: 3px 7px;
+    border-radius: 5px;
+    font-family: "Courier New", monospace;
+    font-size: 0.9em;
+}
+
+/* =========================
+   HERO
+========================= */
+
+.hero {
+    background: #15191e;
+    color: white;
+    padding: 90px 0 80px;
+    border-bottom: 5px solid #3f6f52;
+}
+
+.eyebrow {
+    font-family: Arial, sans-serif;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 25px;
+    color: #b9cdbf;
+}
+
+.hero h1 {
+    max-width: 900px;
+    font-size: clamp(2.4rem, 6vw, 4.6rem);
+    line-height: 1.08;
+    letter-spacing: -1.5px;
+    margin-bottom: 25px;
+}
+
+.subtitle {
+    max-width: 780px;
+    font-size: 1.25rem;
+    color: #d8dde2;
+    line-height: 1.7;
+}
+
+.meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 30px;
+}
+
+.meta span {
+    border: 1px solid #56616b;
+    padding: 7px 13px;
+    border-radius: 20px;
+    font-family: Arial, sans-serif;
+    font-size: 0.78rem;
+}
+
+/* =========================
+   SECTION LABEL
+========================= */
+
+.section-label {
+    font-family: Arial, sans-serif;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: #3f6f52;
+    margin-bottom: 10px;
+}
+
+/* =========================
+   ABSTRACT
+========================= */
+
+.abstract {
+    border-left: 5px solid #3f6f52;
+}
+
+.abstract p {
+    font-size: 1.06rem;
+}
+
+/* =========================
+   QUESTION
+========================= */
+
+.question-box {
+    background: #f1f5f2;
+    border-left: 4px solid #3f6f52;
+    padding: 22px 25px;
+    margin: 20px 0;
+    font-size: 1.08rem;
+    font-style: italic;
+}
+
+/* =========================
+   STATS
+========================= */
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+    margin: 30px 0;
+}
+
+.stat-card {
+    background: #f7f8f9;
+    border: 1px solid #e1e4e7;
+    padding: 22px 15px;
+    text-align: center;
+    border-radius: 9px;
+}
+
+.stat-card strong {
+    display: block;
+    font-family: Arial, sans-serif;
+    font-size: 1.9rem;
+    color: #3f6f52;
+}
+
+.stat-card span {
+    display: block;
+    font-family: Arial, sans-serif;
+    font-size: 0.8rem;
+    color: #606872;
+    margin-top: 5px;
+}
+
+/* =========================
+   FEATURES
+========================= */
+
+.feature-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 20px 0;
+}
+
+.feature-list span,
+.tags span {
+    background: #eef3ef;
+    border: 1px solid #d4e0d7;
+    color: #345b42;
+    padding: 7px 11px;
+    border-radius: 6px;
+    font-family: Arial, sans-serif;
+    font-size: 0.78rem;
+}
+
+/* =========================
+   TABLE
+========================= */
+
+.table-wrapper {
+    overflow-x: auto;
+    margin: 25px 0;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: Arial, sans-serif;
+    font-size: 0.92rem;
+}
+
+th,
+td {
+    padding: 14px 16px;
+    text-align: left;
+    border-bottom: 1px solid #e1e4e7;
+}
+
+th {
+    background: #20252b;
+    color: white;
+    font-weight: 600;
+}
+
+tr:nth-child(even) {
+    background: #f8f9fa;
+}
+
+.highlight-row {
+    background: #eef4ef !important;
+}
+
+.result-note {
+    background: #f5f6f7;
+    border-left: 4px solid #747d86;
+    padding: 18px 20px;
+    margin: 25px 0;
+    font-family: Arial, sans-serif;
+    font-size: 0.9rem;
+}
+
+/* =========================
+   FIGURE
+========================= */
+
+.figure-card {
+    background: #fafafa;
+    border: 1px solid #e1e4e7;
+    padding: 20px;
+    margin-top: 25px;
+    border-radius: 9px;
+}
+
+.figure-card img {
+    display: block;
+    width: 100%;
+    max-width: 850px;
+    margin: 0 auto;
+    height: auto;
+}
+
+.caption {
+    text-align: center;
+    color: #69717a;
+    font-family: Arial, sans-serif;
+    font-size: 0.82rem;
+    margin: 15px 0 0 !important;
+}
+
+/* =========================
+   LIMITATIONS
+========================= */
+
+.limits-list {
+    padding-left: 25px;
+}
+
+.limits-list li {
+    margin-bottom: 13px;
+}
+
+/* =========================
+   RECOMMENDATIONS
+========================= */
+
+.recommendation {
+    display: grid;
+    grid-template-columns: 70px 1fr;
+    gap: 20px;
+    padding: 25px 0;
+    border-bottom: 1px solid #e2e5e8;
+}
+
+.rank {
+    font-family: Arial, sans-serif;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #3f6f52;
+}
+
+.recommendation h3 {
+    margin-top: 0;
+}
+
+.tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 12px;
+}
+
+.no-go {
+    margin-top: 30px;
+    padding: 22px 25px;
+    background: #faf5f5;
+    border-left: 4px solid #8a4a4a;
+}
+
+.no-go ul {
+    margin-top: 12px;
+    padding-left: 22px;
+}
+
+/* =========================
+   ARTIFACTS
+========================= */
+
+.artifact-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    margin-top: 25px;
+}
+
+.artifact {
+    border: 1px solid #e1e4e7;
+    padding: 20px;
+    border-radius: 8px;
+    background: #fafafa;
+}
+
+.artifact strong {
+    display: block;
+    font-family: Arial, sans-serif;
+    margin-bottom: 6px;
+}
+
+.artifact span {
+    display: block;
+    color: #606872;
+    font-size: 0.88rem;
+    margin-bottom: 12px;
+}
+
+.artifact code {
+    display: block;
+    overflow-wrap: anywhere;
+}
+
+/* =========================
+   ACKNOWLEDGMENT
+========================= */
+
+.acknowledgment {
+    background: #f1f5f2;
+}
+
+.acknowledgment a {
+    color: #315c40;
+    font-weight: 700;
+}
+
+.small-note {
+    color: #69717a;
+    font-size: 0.88rem;
+}
+
+/* =========================
+   FOOTER
+========================= */
+
+footer {
+    background: #15191e;
+    color: #cbd1d6;
+    padding: 40px 0;
+    margin-top: 50px;
+    text-align: center;
+    font-family: Arial, sans-serif;
+    font-size: 0.82rem;
+}
+
+footer p {
+    margin: 5px 0;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 850px) {
+
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .artifact-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .paper-section {
+        padding: 35px 30px;
+    }
+
+    .hero {
+        padding: 65px 0;
+    }
+}
+
+@media (max-width: 600px) {
+
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .paper-section {
+        padding: 28px 20px;
+    }
+
+    .hero h1 {
+        font-size: 2.5rem;
+    }
+
+    .subtitle {
+        font-size: 1.05rem;
+    }
+
+    .recommendation {
+        grid-template-columns: 45px 1fr;
+        gap: 12px;
+    }
+
+    .rank {
+        font-size: 1.4rem;
+    }
+}
