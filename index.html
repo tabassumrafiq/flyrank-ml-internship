@@ -221,102 +221,167 @@
                 grouping only.
             </p>
         </section>
-
-
         <!-- RESULTS -->
-        <section class="paper-section">
-            <div class="section-label">04 · RESULTS</div>
+<section class="paper-section">
+    <div class="section-label">04 · RESULTS</div>
 
-            <h2>Model performance</h2>
+    <h2>Model vs Baseline</h2>
 
-            <p>
-                The following measured results come from the validation work.
-                The grouped split is emphasized because it removes client
-                overlap between training and test data.
-            </p>
+    <p>
+        The capstone compares a transparent baseline prioritization rule with
+        the learned Random Forest ranking signal. The baseline uses observed
+        90-day impressions and average search position, while the model uses
+        five observed content and search-performance features.
+    </p>
 
-            <div class="table-wrapper">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Metric</th>
-                            <th>Random Split</th>
-                            <th>Client-Grouped Split</th>
-                        </tr>
-                    </thead>
+    <div class="table-wrapper">
+        <table>
+            <thead>
+                <tr>
+                    <th>Approach</th>
+                    <th>Signals / Method</th>
+                    <th>Purpose</th>
+                </tr>
+            </thead>
 
-                    <tbody>
-                        <tr>
-                            <td>Accuracy</td>
-                            <td>0.6352</td>
-                            <td>0.5398</td>
-                        </tr>
+            <tbody>
+                <tr>
+                    <td>ML-07 Baseline</td>
+                    <td>
+                        90-day impressions + average search position;
+                        percentile-rank scoring
+                    </td>
+                    <td>
+                        Transparent content-review prioritization
+                    </td>
+                </tr>
 
-                        <tr>
-                            <td>Precision</td>
-                            <td>0.6121</td>
-                            <td>0.5283</td>
-                        </tr>
+                <tr>
+                    <td>ML-08 Random Forest</td>
+                    <td>
+                        avg_position, CTR, engagement rate,
+                        scroll rate, word count
+                    </td>
+                    <td>
+                        Learned decline-prioritization signal
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 
-                        <tr>
-                            <td>Recall</td>
-                            <td>0.8924</td>
-                            <td>0.9270</td>
-                        </tr>
+    <div class="result-note">
+        <strong>Baseline interpretation:</strong>
+        The ML-07 baseline is a transparent ranking rule rather than a
+        predictive classifier. Its purpose is to provide an interpretable
+        benchmark before using the learned model.
+    </div>
 
-                        <tr class="highlight-row">
-                            <td>F1</td>
-                            <td>0.7261</td>
-                            <td><strong>0.6730</strong></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+    <h3>Measured Model Results</h3>
 
-            <div class="result-note">
-                <strong>Validation note:</strong>
-                Client overlap between training and test sets was 0 in the
-                grouped validation design.
-            </div>
+    <p>
+        The following measured results come from the validation work.
+        The grouped split is emphasized because it removes client overlap
+        between training and test data.
+    </p>
 
-            <h3>Interpretation</h3>
+    <div class="table-wrapper">
+        <table>
+            <thead>
+                <tr>
+                    <th>Metric</th>
+                    <th>Random Split</th>
+                    <th>Client-Grouped Split</th>
+                </tr>
+            </thead>
 
-            <p>
-                The grouped result is lower than the random-split result,
-                indicating that generalization is more difficult when client
-                overlap is removed. The model therefore provides a useful
-                measured signal for prioritization, but the result should not
-                be interpreted as production-grade certainty.
-            </p>
-        </section>
+            <tbody>
+                <tr>
+                    <td>Accuracy</td>
+                    <td>0.6352</td>
+                    <td>0.5398</td>
+                </tr>
+
+                <tr>
+                    <td>Precision</td>
+                    <td>0.6121</td>
+                    <td>0.5283</td>
+                </tr>
+
+                <tr>
+                    <td>Recall</td>
+                    <td>0.8924</td>
+                    <td>0.9270</td>
+                </tr>
+
+                <tr class="highlight-row">
+                    <td>F1</td>
+                    <td>0.7261</td>
+                    <td><strong>0.6730</strong></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="result-note">
+        <strong>Validation note:</strong>
+        Client overlap between training and test sets was 0 in the grouped
+        validation design.
+    </div>
+
+    <h3>Interpretation</h3>
+
+    <p>
+        The grouped result is lower than the random-split result, indicating
+        that generalization is more difficult when client overlap is removed.
+        The client-grouped result is therefore treated as the more conservative
+        estimate for unseen clients.
+    </p>
+
+    <p>
+        The model provides a measured signal for prioritization, but the
+        results should not be interpreted as production-grade certainty.
+        The baseline remains useful because it provides a simple and
+        transparent comparison point for the learned model.
+    </p>
+
+    <p>
+        Overall, the workflow supports content-review prioritization as a
+        decision-support task. It does not establish that the model will
+        predict future decline perfectly or that acting on a high-scoring item
+        will improve search performance.
+    </p>
+</section>
 
 
-        <!-- FIGURE -->
-        <section class="paper-section">
-            <div class="section-label">05 · MODEL SIGNAL</div>
+<!-- FIGURE -->
+<section class="paper-section">
+    <div class="section-label">05 · MODEL SIGNAL</div>
 
-            <h2>Decline score distribution</h2>
+    <h2>Decline Score Distribution</h2>
 
-            <p>
-                The model probability is used as a ranking signal for the
-                action queue. Higher scores move items toward earlier human
-                review.
-            </p>
+    <p>
+        The model probability is used as a ranking signal for the action queue.
+        Higher scores move items toward earlier human review.
+    </p>
 
-            <div class="figure-card">
+    <div class="figure-card">
 
-                <img
-                    src="work/figures/decline_score_distribution.png"
-                    alt="Distribution of model decline scores"
-                >
+        <img
+            src="work/figures/decline_score_distribution.png"
+            alt="Distribution of model decline scores"
+        >
 
-                <p class="caption">
-                    Figure 1. Distribution of model decline scores generated
-                    from the capstone modeling workflow.
-                </p>
+        <p class="caption">
+            Figure 1. Distribution of model decline scores generated from
+            the capstone modeling workflow.
+        </p>
 
-            </div>
-        </section>
+    </div>
+</section>
+
+
+       
 
 
         <!-- LIMITATIONS -->
