@@ -221,176 +221,212 @@
                 grouping only.
             </p>
         </section>
+
+
         <!-- RESULTS -->
-<section class="paper-section">
-    <div class="section-label">04 · RESULTS</div>
+        <section class="paper-section">
 
-    <h2>Model vs Baseline</h2>
+            <div class="section-label">04 · RESULTS</div>
 
-    <p>
-        The capstone compares a transparent baseline prioritization rule with
-        the learned Random Forest ranking signal. The baseline uses observed
-        90-day impressions and average search position, while the model uses
-        five observed content and search-performance features.
-    </p>
+            <h2>Model vs Baseline</h2>
 
-    <div class="table-wrapper">
-        <table>
-            <thead>
-                <tr>
-                    <th>Approach</th>
-                    <th>Signals / Method</th>
-                    <th>Purpose</th>
-                </tr>
-            </thead>
+            <p>
+                The capstone compares a transparent baseline prioritization
+                rule with the learned Random Forest ranking signal. The baseline
+                uses observed 90-day impressions and average search position,
+                while the model uses five observed content and search-performance
+                features.
+            </p>
 
-            <tbody>
-                <tr>
-                    <td>ML-07 Baseline</td>
-                    <td>
-                        90-day impressions + average search position;
-                        percentile-rank scoring
-                    </td>
-                    <td>
-                        Transparent content-review prioritization
-                    </td>
-                </tr>
+            <div class="table-wrapper">
 
-                <tr>
-                    <td>ML-08 Random Forest</td>
-                    <td>
-                        avg_position, CTR, engagement rate,
-                        scroll rate, word count
-                    </td>
-                    <td>
-                        Learned decline-prioritization signal
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
+                <table>
 
-    <div class="result-note">
-        <strong>Baseline interpretation:</strong>
-        The ML-07 baseline is a transparent ranking rule rather than a
-        predictive classifier. Its purpose is to provide an interpretable
-        benchmark before using the learned model.
-    </div>
+                    <thead>
+                        <tr>
+                            <th>Approach</th>
+                            <th>Signals / Method</th>
+                            <th>Purpose</th>
+                        </tr>
+                    </thead>
 
-    <h3>Measured Model Results</h3>
+                    <tbody>
 
-    <p>
-        The following measured results come from the validation work.
-        The grouped split is emphasized because it removes client overlap
-        between training and test data.
-    </p>
+                        <tr>
+                            <td>ML-07 Baseline</td>
 
-    <div class="table-wrapper">
-        <table>
-            <thead>
-                <tr>
-                    <th>Metric</th>
-                    <th>Random Split</th>
-                    <th>Client-Grouped Split</th>
-                </tr>
-            </thead>
+                            <td>
+                                90-day impressions + average search position;
+                                percentile-rank scoring
+                            </td>
 
-            <tbody>
-                <tr>
-                    <td>Accuracy</td>
-                    <td>0.6352</td>
-                    <td>0.5398</td>
-                </tr>
+                            <td>
+                                Transparent content-review prioritization
+                            </td>
+                        </tr>
 
-                <tr>
-                    <td>Precision</td>
-                    <td>0.6121</td>
-                    <td>0.5283</td>
-                </tr>
+                        <tr>
+                            <td>ML-08 Random Forest</td>
 
-                <tr>
-                    <td>Recall</td>
-                    <td>0.8924</td>
-                    <td>0.9270</td>
-                </tr>
+                            <td>
+                                avg_position, CTR, engagement rate,
+                                scroll rate, word count
+                            </td>
 
-                <tr class="highlight-row">
-                    <td>F1</td>
-                    <td>0.7261</td>
-                    <td><strong>0.6730</strong></td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
+                            <td>
+                                Learned decline-prioritization signal
+                            </td>
+                        </tr>
 
-    <div class="result-note">
-        <strong>Validation note:</strong>
-        Client overlap between training and test sets was 0 in the grouped
-        validation design.
-    </div>
+                    </tbody>
 
-    <h3>Interpretation</h3>
+                </table>
 
-    <p>
-        The grouped result is lower than the random-split result, indicating
-        that generalization is more difficult when client overlap is removed.
-        The client-grouped result is therefore treated as the more conservative
-        estimate for unseen clients.
-    </p>
-
-    <p>
-        The model provides a measured signal for prioritization, but the
-        results should not be interpreted as production-grade certainty.
-        The baseline remains useful because it provides a simple and
-        transparent comparison point for the learned model.
-    </p>
-
-    <p>
-        Overall, the workflow supports content-review prioritization as a
-        decision-support task. It does not establish that the model will
-        predict future decline perfectly or that acting on a high-scoring item
-        will improve search performance.
-    </p>
-</section>
+            </div>
 
 
-<!-- FIGURE -->
-<section class="paper-section">
-    <div class="section-label">05 · MODEL SIGNAL</div>
+            <div class="result-note">
 
-    <h2>Decline Score Distribution</h2>
+                <strong>Baseline interpretation:</strong>
 
-    <p>
-        The model probability is used as a ranking signal for the action queue.
-        Higher scores move items toward earlier human review.
-    </p>
+                The ML-07 baseline is a transparent ranking rule rather than a
+                predictive classifier. Its purpose is to provide an interpretable
+                benchmark before using the learned model.
 
-    <div class="figure-card">
-
-        <img
-            src="work/figures/decline_score_distribution.png"
-            alt="Distribution of model decline scores"
-        >
-
-        <p class="caption">
-            Figure 1. Distribution of model decline scores generated from
-            the capstone modeling workflow.
-        </p>
-
-    </div>
-</section>
+            </div>
 
 
-       
+            <h3>Measured Model Results</h3>
+
+            <p>
+                The following measured results come from the validation work.
+                The grouped split is emphasized because it removes client
+                overlap between training and test data.
+            </p>
+
+
+            <div class="table-wrapper">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+                            <th>Metric</th>
+                            <th>Random Split</th>
+                            <th>Client-Grouped Split</th>
+                        </tr>
+
+                    </thead>
+
+                    <tbody>
+
+                        <tr>
+                            <td>Accuracy</td>
+                            <td>0.6352</td>
+                            <td>0.5398</td>
+                        </tr>
+
+                        <tr>
+                            <td>Precision</td>
+                            <td>0.6121</td>
+                            <td>0.5283</td>
+                        </tr>
+
+                        <tr>
+                            <td>Recall</td>
+                            <td>0.8924</td>
+                            <td>0.9270</td>
+                        </tr>
+
+                        <tr class="highlight-row">
+                            <td>F1</td>
+                            <td>0.7261</td>
+                            <td><strong>0.6730</strong></td>
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+
+            <div class="result-note">
+
+                <strong>Validation note:</strong>
+
+                Client overlap between training and test sets was 0 in the
+                grouped validation design.
+
+            </div>
+
+
+            <h3>Interpretation</h3>
+
+            <p>
+                The grouped result is lower than the random-split result,
+                indicating that generalization is more difficult when client
+                overlap is removed. The client-grouped result is therefore
+                treated as the more conservative estimate for unseen clients.
+            </p>
+
+            <p>
+                The model provides a measured signal for prioritization, but the
+                results should not be interpreted as production-grade certainty.
+                The baseline remains useful because it provides a simple and
+                transparent comparison point for the learned model.
+            </p>
+
+            <p>
+                Overall, the workflow supports content-review prioritization as
+                a decision-support task. It does not establish that the model
+                will predict future decline perfectly or that acting on a
+                high-scoring item will improve search performance.
+            </p>
+
+        </section>
+
+
+        <!-- FIGURE -->
+        <section class="paper-section">
+
+            <div class="section-label">05 · MODEL SIGNAL</div>
+
+            <h2>Decline Score Distribution</h2>
+
+            <p>
+                The model probability is used as a ranking signal for the
+                action queue. Higher scores move items toward earlier human
+                review.
+            </p>
+
+            <div class="figure-card">
+
+                <img
+                    src="work/figures/decline_score_distribution.png"
+                    alt="Distribution of model decline scores"
+                >
+
+                <p class="caption">
+                    Figure 1. Distribution of model decline scores generated
+                    from the capstone modeling workflow.
+                </p>
+
+            </div>
+
+        </section>
 
 
         <!-- LIMITATIONS -->
         <section class="paper-section">
+
             <div class="section-label">06 · LIMITATIONS</div>
 
             <h2>Honest framing</h2>
 
             <ul class="limits-list">
+
                 <li>
                     The target represents observed trend direction and does
                     not prove future decline.
@@ -420,79 +456,213 @@
                     Recommendation quality may change as the underlying data
                     population changes.
                 </li>
+
             </ul>
+
         </section>
 
 
         <!-- RECOMMENDATIONS -->
         <section class="paper-section recommendations">
-            <div class="section-label">07 · RANKED RECOMMENDATIONS</div>
 
-            <h2>Content action playbook</h2>
+            <div class="section-label">
+                07 · RANKED RECOMMENDATIONS
+            </div>
+
+            <h2>Content Action Playbook</h2>
+
+            <p>
+                The model output is used to create a ranked review queue.
+                These recommendations are intended to support human review,
+                not to make automatic content decisions.
+            </p>
+
+
+            <!-- Recommendation 01 -->
 
             <div class="recommendation">
 
-                <div class="rank">01</div>
+                <div class="rank">
+                    01
+                </div>
 
                 <div>
-                    <h3>Prioritize for human review</h3>
+
+                    <h3>
+                        Prioritize high-scoring items for human review
+                    </h3>
 
                     <p>
-                        Items with a high decline score should receive earlier
-                        human review.
+                        Items with higher model-based decline scores should be
+                        considered earlier in the human-review queue.
                     </p>
 
                     <div class="tags">
-                        <span>HIGH_DECLINE_SCORE</span>
-                        <span>POSITION_RISK</span>
+
+                        <span>
+                            MODEL-BASED PRIORITIZATION
+                        </span>
+
+                        <span>
+                            HUMAN REVIEW
+                        </span>
+
                     </div>
+
                 </div>
 
             </div>
 
 
+            <!-- Recommendation 02 -->
+
             <div class="recommendation">
 
-                <div class="rank">02</div>
+                <div class="rank">
+                    02
+                </div>
 
                 <div>
-                    <h3>Review if resources allow</h3>
+
+                    <h3>
+                        Review the underlying observed signals
+                    </h3>
 
                     <p>
-                        Moderate-score items can be reviewed when capacity is
-                        available.
+                        Reviewers should inspect the search and content-
+                        performance signals associated with the prioritized
+                        item before taking action.
                     </p>
 
                     <div class="tags">
-                        <span>LOW_CTR_SIGNAL</span>
-                        <span>LOW_ENGAGEMENT_SIGNAL</span>
+
+                        <span>
+                            VISIBLE_POSITION_REVIEW
+                        </span>
+
+                        <span>
+                            OBSERVED SIGNALS
+                        </span>
+
                     </div>
+
                 </div>
 
             </div>
 
 
+            <!-- Recommendation 03 -->
+
             <div class="recommendation">
 
-                <div class="rank">03</div>
+                <div class="rank">
+                    03
+                </div>
 
                 <div>
-                    <h3>Monitor</h3>
+
+                    <h3>
+                        Use reason codes for transparency
+                    </h3>
 
                     <p>
-                        Lower-score items can remain in the monitoring queue
-                        rather than receiving immediate intervention.
+                        Clear reason codes explain why an item entered the
+                        review queue and make the workflow easier to audit.
                     </p>
 
                     <div class="tags">
-                        <span>LOWER_PRIORITY</span>
+
+                        <span>
+                            VISIBLE_POSITION_REVIEW
+                        </span>
+
+                        <span>
+                            NO_HIGH_PRIORITY_SIGNAL
+                        </span>
+
                     </div>
+
                 </div>
 
             </div>
 
 
-            <h3>Human review is required</h3>
+            <!-- Recommendation 04 -->
+
+            <div class="recommendation">
+
+                <div class="rank">
+                    04
+                </div>
+
+                <div>
+
+                    <h3>
+                        Make the final content decision through human review
+                    </h3>
+
+                    <p>
+                        A reviewer should decide whether the appropriate action
+                        is to improve, rewrite, merge, monitor, or take no action.
+                    </p>
+
+                    <div class="tags">
+
+                        <span>
+                            HUMAN JUDGMENT
+                        </span>
+
+                        <span>
+                            DECISION SUPPORT
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- Recommendation 05 -->
+
+            <div class="recommendation">
+
+                <div class="rank">
+                    05
+                </div>
+
+                <div>
+
+                    <h3>
+                        Monitor the workflow over time
+                    </h3>
+
+                    <p>
+                        Review the system when the data distribution, feature
+                        behavior, label definition, or validation performance
+                        changes meaningfully.
+                    </p>
+
+                    <div class="tags">
+
+                        <span>
+                            MONITORING
+                        </span>
+
+                        <span>
+                            DATA DRIFT
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <h3>
+                Human review is required
+            </h3>
 
             <p>
                 Reviewers should consider content relevance, quality, strategic
@@ -500,25 +670,65 @@
                 appropriate before acting.
             </p>
 
+
             <div class="no-go">
-                <strong>Should not be automated:</strong>
+
+                <strong>
+                    Should not be automated:
+                </strong>
 
                 <ul>
-                    <li>Automatic content rewriting</li>
-                    <li>Automatic content deletion</li>
-                    <li>Automatic publishing</li>
-                    <li>Automatic refresh decisions</li>
-                    <li>Treating model scores as guaranteed outcomes</li>
+
+                    <li>
+                        Automatic content rewriting
+                    </li>
+
+                    <li>
+                        Automatic content deletion
+                    </li>
+
+                    <li>
+                        Automatic publishing
+                    </li>
+
+                    <li>
+                        Automatic refresh decisions
+                    </li>
+
+                    <li>
+                        Treating model scores as guaranteed outcomes
+                    </li>
+
                 </ul>
+
             </div>
+
+
+            <div class="result-note">
+
+                <strong>
+                    Decision-support note:
+                </strong>
+
+                Model scores are directional signals for prioritization.
+                They should not be treated as proof of decline or as proof
+                that a refresh will improve future search performance.
+
+            </div>
+
         </section>
 
 
         <!-- REPRODUCIBILITY -->
         <section class="paper-section">
-            <div class="section-label">08 · REPRODUCIBILITY</div>
 
-            <h2>Research artifacts</h2>
+            <div class="section-label">
+                08 · REPRODUCIBILITY
+            </div>
+
+            <h2>
+                Research artifacts
+            </h2>
 
             <p>
                 The analysis is organized as a reproducible research workflow.
@@ -529,32 +739,70 @@
             <div class="artifact-grid">
 
                 <div class="artifact">
-                    <strong>Capstone</strong>
-                    <span>ML-11 research paper workflow</span>
-                    <code>work/notebooks/capstone.ipynb</code>
+
+                    <strong>
+                        Capstone
+                    </strong>
+
+                    <span>
+                        ML-11 research paper workflow
+                    </span>
+
+                    <code>
+                        work/notebooks/capstone.ipynb
+                    </code>
+
                 </div>
 
-                <div class="artifact">
-                    <strong>Validation</strong>
-                    <span>Model and claim audit</span>
-                    <code>work/notebooks/w06_validation_audit.ipynb</code>
-                </div>
 
                 <div class="artifact">
-                    <strong>Action Playbook</strong>
-                    <span>Ranked recommendations</span>
-                    <code>work/notebooks/w07_action_playbook.ipynb</code>
+
+                    <strong>
+                        Validation
+                    </strong>
+
+                    <span>
+                        Model and claim audit
+                    </span>
+
+                    <code>
+                        work/notebooks/w06_validation_audit.ipynb
+                    </code>
+
+                </div>
+
+
+                <div class="artifact">
+
+                    <strong>
+                        Action Playbook
+                    </strong>
+
+                    <span>
+                        Ranked recommendations
+                    </span>
+
+                    <code>
+                        work/notebooks/w07_action_playbook.ipynb
+                    </code>
+
                 </div>
 
             </div>
+
         </section>
 
 
         <!-- ACKNOWLEDGMENTS -->
         <section class="paper-section acknowledgment">
-            <div class="section-label">ACKNOWLEDGMENTS & DATA CREDIT</div>
 
-            <h2>Data source</h2>
+            <div class="section-label">
+                ACKNOWLEDGMENTS & DATA CREDIT
+            </div>
+
+            <h2>
+                Data source
+            </h2>
 
             <p>
                 Built on the FlyRank ML Internship dataset.
@@ -562,6 +810,7 @@
 
             <p>
                 Data source:
+
                 <a
                     href="https://flyrank.ai"
                     target="_blank"
@@ -576,6 +825,7 @@
                 decision-support purposes. Results and recommendations should
                 be interpreted within the limitations described above.
             </p>
+
         </section>
 
     </main>
@@ -583,6 +833,7 @@
 
     <!-- FOOTER -->
     <footer>
+
         <div class="container">
 
             <p>
@@ -595,7 +846,9 @@
             </p>
 
         </div>
+
     </footer>
+
 
 </body>
 </html>
