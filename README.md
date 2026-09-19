@@ -290,26 +290,27 @@ Two evaluation approaches are considered:
 
 Client-grouped validation is important because pages belonging to the same client should not be mixed between training and testing data when evaluating generalization.
 
-v2 Evaluation Results
 
-The final v2 evaluation results should be reported directly from the final capstone notebook.
+### v2 Evaluation Results
 
-Random Split — Accuracy: To be added from final v2 run; F1 Score: To be added from final v2 run.
-Client-Grouped Split — Accuracy: To be added from final v2 run; F1 Score: To be added from final v2 run.
+The final v2 evaluation compared a Random Forest model using a random split and a client-grouped split.
 
-The results should be interpreted as decision-support evidence rather than as a prediction of Google's ranking algorithm.
+| Metric | Random Split | Client-Grouped Split |
+|---|---:|---:|
+| Accuracy | 0.6352 | 0.5398 |
+| Precision | 0.6121 | 0.5283 |
+| Recall | 0.8924 | 0.9270 |
+| F1 | 0.7261 | 0.6730 |
 
-Outputs
+The client-grouped split had no client overlap between training and test data and is treated as the more conservative estimate of generalization to unseen clients.
 
-The project produces analysis and model outputs that can help prioritize content for review.
+The grouped validation result shows a measurable directional signal, but the lower grouped performance indicates that the model should be treated as decision-support rather than production-grade prediction.
 
-Important outputs include:
-• Action scoring results
-• Model evaluation results
-• Content decline score distribution
-• Analysis and reporting files
+The baseline used 28,795 valid content items and prioritized the top 10% using an equal-weight combination of percentile-ranked 90-day impressions and average search position.
 
-Limitations
+Neither the baseline nor the model proves that an individual content item will decline or that a particular refresh action will improve future performance.
+
+limitation
 
 • The dataset is anonymized and represents a limited view of real-world search performance.
 • The available features do not capture every factor that may influence search performance.
