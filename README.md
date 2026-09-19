@@ -145,3 +145,228 @@ build on — and the `skills/` folder here is the instruction library for your A
 ---
 
 *Track leads: Mirza Ašćerić (ML) · Hole (data engineering). Code under MIT (see `LICENSE`); data under `DATA_USE.md`.*
+
+
+FlyRank ML Internship — Starter Repo
+
+Applied Search Intelligence: Google Search Ranking & Discoverability
+
+This is the starting point for the FlyRank ML Internship. You clone it into your own public repo, build everything there, and submit that repo URL on each assignment in your portal — it's your workspace, your submission, and your portfolio all at once.
+
+Everything here runs on a small anonymized slice of real FlyRank search data. No credentials, no private client data, no setup headaches.
+
+Quickstart
+
+The fastest path is Google Colab.
+
+Local Setup
+
+git clone https://github.com/tabassumrafiq/flyrank-ml-internship.git
+cd flyrank-ml-internship
+pip install -r requirements.txt
+python scripts/run_all.py
+
+The pipeline runs on the bundled anonymized sample and writes results to outputs/.
+
+Assignment Notebooks
+
+Every assignment is available inside work/notebooks/.
+
+1. Week 1 — ML-02 — w01_research_question
+2. Week 2 — ML-03 — w02_ml_task_framing
+3. Week 3 — ML-04 — w03_data_contract
+4. Week 3 — ML-05 — w03_feature_leakage_check
+5. Week 4 — ML-06 — w04_signal_audit
+6. Week 4 — ML-07 — w04_baseline_score
+7. Week 5 — ML-08 — w05_model
+8. Week 6 — ML-09 — w06_validation_audit
+9. Week 7 — ML-10 — w07_action_playbook
+10. Week 8 — ML-11 — capstone
+
+What You Get
+
+• notebooks/ — Week 1–2 first-win notebooks
+• scripts/ — Runnable reference pipeline
+• data/raw/ — Anonymized starter dataset
+• outputs/ — Example outputs
+• work/ — My assignment and capstone work
+• docs/ — Project documentation and data dictionary
+
+The Pipeline
+
+01_prepare_features.py → 02_baseline_score.py → 03_train_model.py → 04_evaluate_and_export.py → 05_build_pdf_report.py
+
+Workflow:
+Problem Framing → Data Cleaning → Feature Engineering → Baseline → Machine Learning Model → Evaluation → Actionable Recommendation
+
+Data Safety
+
+• Only anonymized data is used in this repository.
+• No private client data should be added.
+• No credentials or sensitive information should be committed.
+• Results should be treated as observed, measured, directional, and decision-support evidence.
+• The project does not claim to predict Google's ranking algorithm.
+
+Bibi Tabassum — ML Capstone
+
+What the Project Does
+
+This project focuses on identifying website content that may be declining in search performance and prioritizing pages for review or refresh.
+
+The system uses machine learning and content-performance signals to help SEO teams decide which pages should be reviewed first.
+
+It is designed as a decision-support tool, not as a system that predicts or explains Google's ranking algorithm.
+
+Who It Is For
+
+The project is intended for:
+• SEO teams
+• Content teams
+• Website managers
+• Digital marketing teams
+
+It can help teams identify content that may need further investigation, review, or refresh.
+
+Problem Statement
+
+Websites can contain pages whose search performance is declining over time. Manually reviewing a large number of pages can be difficult and time-consuming.
+
+This project explores a machine-learning-based approach for identifying potentially declining content and prioritizing pages for review.
+
+Dataset
+
+The project uses the anonymized content_refresh_anonymized.csv dataset provided through the internship repository.
+
+The dataset contains approximately 30,000 rows and multiple content and search-performance fields.
+
+No private client names, domains, URLs, titles, or keywords are used.
+
+Target
+
+The target label is derived from the content trend direction:
+
+is_declining_label = trend_direction == "down"
+
+The objective is to identify content associated with a declining trend and prioritize it for further review.
+
+Features Used
+
+The project uses content and search-performance signals including:
+• avg_position
+• ctr
+• engagement_rate
+• scroll_rate
+• word_count
+
+These features provide information about search visibility, user engagement, and content characteristics.
+
+Architecture
+
+Anonymized Content Data
+        ↓
+Data Preparation
+        ↓
+Feature Engineering
+        ↓
+Target Definition
+        ↓
+Baseline Scoring
+        ↓
+Machine Learning Model
+        ↓
+Validation & Evaluation
+        ↓
+Action / Review Queue
+        ↓
+Content Review or Refresh
+
+Model Evaluation
+
+The project evaluates the machine-learning workflow using classification metrics and validation strategies.
+
+Two evaluation approaches are considered:
+1. Random split
+2. Client-grouped split
+
+Client-grouped validation is important because pages belonging to the same client should not be mixed between training and testing data when evaluating generalization.
+
+v2 Evaluation Results
+
+The final v2 evaluation results should be reported directly from the final capstone notebook.
+
+Random Split — Accuracy: To be added from final v2 run; F1 Score: To be added from final v2 run.
+Client-Grouped Split — Accuracy: To be added from final v2 run; F1 Score: To be added from final v2 run.
+
+The results should be interpreted as decision-support evidence rather than as a prediction of Google's ranking algorithm.
+
+Outputs
+
+The project produces analysis and model outputs that can help prioritize content for review.
+
+Important outputs include:
+• Action scoring results
+• Model evaluation results
+• Content decline score distribution
+• Analysis and reporting files
+
+Limitations
+
+• The dataset is anonymized and represents a limited view of real-world search performance.
+• The available features do not capture every factor that may influence search performance.
+• Model performance can vary depending on the data and environment.
+• The model should not be interpreted as predicting Google's ranking algorithm.
+• Machine-learning results require human interpretation.
+• A high-priority page still requires human review before making content or SEO changes.
+• Results should be treated as directional and decision-support evidence rather than universal conclusions.
+
+Key Design Decision
+
+A key design decision was to use client-grouped validation in addition to a random split.
+
+The grouped approach helps evaluate whether the model can generalize to clients that were not represented in the training data and reduces the risk of overly optimistic evaluation caused by client overlap.
+
+What Was Built With AI
+
+AI assistance was used during the project for:
+• Understanding assignment requirements
+• Brainstorming and refining implementation approaches
+• Debugging and reviewing code
+• Improving documentation
+• Reviewing explanations
+• Helping structure the project workflow
+
+The final implementation, analysis, evaluation, outputs, and project decisions were reviewed and completed as part of the internship work.
+
+How to Use the Capstone
+
+1. Open the capstone notebook: work/notebooks/capstone.ipynb
+2. Load the anonymized dataset.
+3. Prepare the required features.
+4. Define the declining-content target.
+5. Run the baseline.
+6. Train the machine-learning model.
+7. Run the evaluation.
+8. Review the generated outputs.
+9. Use the resulting scores as a starting point for content review and refresh decisions.
+
+Project Repository
+
+GitHub Repository:
+https://github.com/tabassumrafiq/flyrank-ml-internship
+
+Internship Learning Outcome
+
+This capstone demonstrates an end-to-end machine-learning workflow:
+
+Research Question → Problem Framing → Data Contract → Feature & Leakage Checks → Signal Analysis → Baseline → Model → Validation → Action Playbook → Capstone
+
+The main focus is not only the final model, but also the complete workflow from problem definition to evaluation and actionable decision support.
+
+Author
+
+Bibi Tabassum
+Artificial Intelligence Student
+Abdul Wali Khan University Mardan (AWKUM)
+
+GitHub: https://github.com/tabassumrafiq
+LinkedIn: https://www.linkedin.com/in/bibi-tabassum-2027402a/
